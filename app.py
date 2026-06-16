@@ -111,8 +111,8 @@ if st.button("Predict Burnout Level"):
 
     # Additional message
     if result == "High":
-        st.error("⚠️ The student may be experiencing a high level of burnout.")
+        st.error("⚠️ Please get some rest")
     elif result == "Medium":
-        st.warning("⚠️ The student may be experiencing a moderate level of burnout.")
+        st.warning("⚠️ Please take care of yourself")
     else:
-        st.info("✅ The student appears to have a low level of burnout.")
+        st.info("✅ good!.")
