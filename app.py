@@ -80,7 +80,7 @@ if st.button("Predict Burnout Level"):
 
     input_data = np.array([[
         daily_sleep_hours,
-        daily_time_hours,
+        daily_study_hours,
         physical_activity_hours,
         sleep_map[sleep_quality],
         cgpa
