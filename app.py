@@ -23,7 +23,7 @@ st.set_page_config(
 # Title
 # ==========================
 
-st.title("🎓 Student Burnout Prediction System")
+st.title("🎓 Let's Predict Your Burnout!")
 
 st.markdown("""
 This application predicts a student's burnout level based on lifestyle and academic factors.
