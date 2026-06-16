@@ -26,14 +26,12 @@ st.set_page_config(
 st.title("🎓 Student Burnout Prediction System")
 
 st.markdown("""
-This application predicts a student's burnout level based on lifestyle and academic factors using a Support Vector Machine (SVM) model.
+This application predicts a student's burnout level based on lifestyle and academic factors.
+made by umi maisarah CB23036
 """)
 
 st.divider()
 
-# ==========================
-# User Inputs
-# ==========================
 
 daily_sleep_hours = st.slider(
     "🛌 Daily Sleep Hours",
@@ -69,9 +67,6 @@ cgpa = st.number_input(
     step=0.01
 )
 
-# ==========================
-# Sleep Quality Encoding
-# ==========================
 
 sleep_map = {
     "Average": 0,
@@ -79,9 +74,7 @@ sleep_map = {
     "Poor": 2
 }
 
-# ==========================
-# Prediction
-# ==========================
+
 
 if st.button("Predict Burnout Level"):
 
@@ -93,10 +86,9 @@ if st.button("Predict Burnout Level"):
         cgpa
     ]])
 
-    # Scale input
+
     input_data = scaler.transform(input_data)
 
-    # Predict
     prediction = model.predict(input_data)
 
     burnout_map = {
