@@ -2,57 +2,74 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load trained model and scaler
+
+
 model = pickle.load(open("burnout_model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
-# Title
-st.title("Student Burnout Prediction System")
 
-st.write("Enter student information to predict burnout level.")
-
-# User inputs
-daily_sleep_hours = st.number_input(
-    "Daily Sleep Hours",
-    min_value=0.0,
-    max_value=24.0,
-    value=7.0
+st.set_page_config(
+    page_title="Student Burnout Prediction",
+    page_icon="🎓",
+    layout="centered"
 )
 
-screen_time_hours = st.number_input(
-    "Screen Time Hours",
-    min_value=0.0,
-    max_value=24.0,
-    value=5.0
+st.title("🎓 Student Burnout Prediction System")
+
+st.markdown("""
+This application predicts a student's burnout level based on lifestyle and academic factors using a Support Vector Machine (SVM) model.
+""")
+
+st.divider()
+
+
+daily_sleep_hours = st.slider(
+    "🛌 Daily Sleep Hours",
+    min_value=0,
+    max_value=24,
+    value=7
 )
 
-physical_activity_hours = st.number_input(
-    "Physical Activity Hours",
-    min_value=0.0,
-    max_value=10.0,
-    value=1.0
+screen_time_hours = st.slider(
+    "📱 Screen Time Hours",
+    min_value=0,
+    max_value=24,
+    value=5
+)
+
+physical_activity_hours = st.slider(
+    "🏃 Physical Activity Hours",
+    min_value=0,
+    max_value=10,
+    value=1
 )
 
 sleep_quality = st.selectbox(
-    "Sleep Quality",
+    "😴 Sleep Quality",
     ["Average", "Good", "Poor"]
 )
 
 cgpa = st.number_input(
-    "CGPA",
+    "📚 CGPA",
     min_value=0.0,
-    max_value=10.0,
-    value=7.0
+    max_value=4.0,
+    value=3.0,
+    step=0.01
 )
 
-# Encoding for sleep quality
+
+
+
 sleep_map = {
     "Average": 0,
     "Good": 1,
     "Poor": 2
 }
 
-# Prediction button
+# ==========================
+# Prediction
+# ==========================
+
 if st.button("Predict Burnout Level"):
 
     input_data = np.array([[
@@ -69,13 +86,20 @@ if st.button("Predict Burnout Level"):
     # Predict
     prediction = model.predict(input_data)
 
-    # Decode burnout level
     burnout_map = {
         0: "High",
         1: "Low",
         2: "Medium"
     }
 
-    st.success(
-        f"Predicted Burnout Level: {burnout_map[prediction[0]]}"
-    )
+    result = burnout_map[prediction[0]]
+
+    st.success(f"Predicted Burnout Level: {result}")
+
+    # Additional message
+    if result == "High":
+        st.error("⚠️ The student may be experiencing a high level of burnout.")
+    elif result == "Medium":
+        st.warning("⚠️ The student may be experiencing a moderate level of burnout.")
+    else:
+        st.info("✅ The student appears to have a low level of burnout.")
