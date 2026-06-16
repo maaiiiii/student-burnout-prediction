@@ -40,11 +40,11 @@ daily_sleep_hours = st.slider(
     value=7
 )
 
-screen_time_hours = st.slider(
-    "📱 Screen Time Hours",
+daily_study_hours = st.slider(
+    "📖 Daily Study Hours",
     min_value=0,
     max_value=24,
-    value=5
+    value=4
 )
 
 physical_activity_hours = st.slider(
@@ -80,7 +80,7 @@ if st.button("Predict Burnout Level"):
 
     input_data = np.array([[
         daily_sleep_hours,
-        screen_time_hours,
+        daily_time_hours,
         physical_activity_hours,
         sleep_map[sleep_quality],
         cgpa
