@@ -2,17 +2,26 @@ import streamlit as st
 import pickle
 import numpy as np
 
-
+# ==========================
+# Load Model and Scaler
+# ==========================
 
 model = pickle.load(open("burnout_model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
+# ==========================
+# Page Configuration
+# ==========================
 
 st.set_page_config(
     page_title="Student Burnout Prediction",
     page_icon="🎓",
     layout="centered"
 )
+
+# ==========================
+# Title
+# ==========================
 
 st.title("🎓 Student Burnout Prediction System")
 
@@ -22,6 +31,9 @@ This application predicts a student's burnout level based on lifestyle and acade
 
 st.divider()
 
+# ==========================
+# User Inputs
+# ==========================
 
 daily_sleep_hours = st.slider(
     "🛌 Daily Sleep Hours",
@@ -57,8 +69,9 @@ cgpa = st.number_input(
     step=0.01
 )
 
-
-
+# ==========================
+# Sleep Quality Encoding
+# ==========================
 
 sleep_map = {
     "Average": 0,
@@ -96,4 +109,10 @@ if st.button("Predict Burnout Level"):
 
     st.success(f"Predicted Burnout Level: {result}")
 
-   
+    # Additional message
+    if result == "High":
+        st.error("⚠️ The student may be experiencing a high level of burnout.")
+    elif result == "Medium":
+        st.warning("⚠️ The student may be experiencing a moderate level of burnout.")
+    else:
+        st.info("✅ The student appears to have a low level of burnout.")
