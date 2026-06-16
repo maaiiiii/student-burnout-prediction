@@ -97,4 +97,3 @@ if st.button("Predict Burnout Level"):
     st.success(f"Predicted Burnout Level: {result}")
 
    
-        st.info("✅ The student appears to have a low level of burnout.")
